@@ -6,12 +6,9 @@
                 tools:context="com.example.kemo.movieapp.MainActivityFragment"
                 android:background="#123"
 >
-
-    <TextView
-            android:text="Hello World!"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#fff"
-    />
+   <!--<ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:id="@+id/image_view" android:src="@mipmap/image1"/>-->
+    <GridView android:layout_width="match_parent" android:layout_height="match_parent" android:id="@+id/gridView_movies"
+              android:numColumns="2"
+    ></GridView>
 
 </RelativeLayout>
