@@ -1,6 +1,7 @@
 package com.example.kemo.movieapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,13 +10,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
+import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -25,7 +32,8 @@ import java.util.ArrayList;
  * A placeholder fragment containing a simple view.
  */
 //TODO
-    //a class contains data & may Inherit it from image view
+    // remove useless info in imagelist adabter & remove the bitmap from movie
+    //just pass the link where the the other page will load it -_-
 public class MainActivityFragment extends Fragment {
 
 
@@ -40,17 +48,18 @@ public class MainActivityFragment extends Fragment {
 
     public ImageListAdapter imageListAdapter;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
        GridView gridView =(GridView) view.findViewById(R.id.gridView_movies);
-         imageListAdapter = new ImageListAdapter(getActivity(), new String[0]);
+         imageListAdapter = new ImageListAdapter(getActivity(), new Movie[0]);
         gridView.setAdapter(imageListAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String movie =(String) imageListAdapter.getItem(i);
-                Toast.makeText(getActivity(), movie, Toast.LENGTH_SHORT).show();
+                Movie movie =(Movie) imageListAdapter.getItem(i);
+                Intent intent = new Intent(getActivity(), DetailsActivity.class).putExtra(Intent.EXTRA_TEXT,movie);
+                startActivity(intent);
             }
         });
         return view;
@@ -145,7 +154,7 @@ public class MainActivityFragment extends Fragment {
             JSONArray weatherData = movieDetails.getJSONArray(MDB_RESULTS);
             for (int i = 0; i < weatherData.length(); i++)
             {
-                Movie movie = new Movie(getActivity());
+                Movie movie = new Movie();
                 JSONObject jsonObject = weatherData.getJSONObject(i);
                 movie.setMovieId(jsonObject.getInt(MDB_ID));
                 movie.setPosterPath(jsonObject.getString(MDB_POSTER_PATH));
@@ -165,35 +174,40 @@ public class MainActivityFragment extends Fragment {
         protected void onPostExecute(ArrayList<Movie> movies) {
             super.onPostExecute(movies);
 //            imageListAdapter.clear();
-            ArrayList<String> uriPaths = imageListAdapter.getUriList();
+            if(movies == null) return;
+            ArrayList<Movie> uriPaths = imageListAdapter.getUriList();
             uriPaths.clear();
             for (Movie movie: movies
                  ) {
                 Log.w("tag", movie.getPosterPath());
-                uriPaths.add(movie.getPosterPath());
-                //imageListAdapter.add(movie.getPosterPath());
+                uriPaths.add(movie);
             }
             imageListAdapter.notifyDataSetChanged();
+        }
+        /*private Movie createMovie(){
+            Movie movie = new Movie(getActivity());
+            movie.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 300));
+            movie.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            return movie;*/
         }
     }
 
 
-}
+
 class ImageListAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
-    private ArrayList<String> imageUrls;
-
-    public ImageListAdapter(Context context, String[] imageUrls) {
-        this.imageUrls = new ArrayList<>();
+    private ArrayList<Movie> movies;
+    public ImageListAdapter(Context context, Movie[] movies) {
+        this.movies = new ArrayList<>();
         this.context = context;
-        this.imageUrls.toArray(imageUrls);
+        this.movies.toArray(movies);
         inflater = LayoutInflater.from(context);
     }
 
     @Override
     public Object getItem(int i) {
-        return imageUrls.get(i);
+        return movies.get(i);
     }
 
     @Override
@@ -203,7 +217,7 @@ class ImageListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return imageUrls.size();
+        return movies.size();
     }
 
     @Override
@@ -224,14 +238,14 @@ class ImageListAdapter extends BaseAdapter {
 
         Picasso
                 .with(context)
-                .load(imageUrls.get(position))
+                .load(movies.get(position).getPosterPath())
                 .fit()
                 .into( imageView);
-
         return imageView;
     }
-    public ArrayList<String> getUriList()
+    public ArrayList<Movie> getUriList()
     {
-        return imageUrls;
+        return movies;
     }
+
 }

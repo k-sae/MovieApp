@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:showIn="@layout/activity_details"
+                tools:context="com.example.kemo.movieapp.DetailsActivityFragment">
+<ImageView android:layout_width="200dp" android:layout_height="250dp" android:id="@+id/Detail_poster_imageView"
+           android:layout_alignParentLeft="true"
+           android:layout_alignParentTop="true"
+           android:background="#aaa"
+
+/>
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/movieTitle_textView"
+              android:layout_toRightOf="@+id/Detail_poster_imageView"
+              android:layout_alignParentTop="true"
+              android:text="@string/movie_title"
+              android:layout_margin="@dimen/moviesTextViews_margin"
+    />
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/movieDate_textView"
+              android:layout_toRightOf="@+id/Detail_poster_imageView"
+              android:layout_below="@+id/movieTitle_textView"
+              android:text="@string/movie_date"
+              android:layout_margin="@dimen/moviesTextViews_margin"
+    />
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/movieDescription_textView"
+              android:layout_below="@+id/Detail_poster_imageView"
+              android:layout_alignParentLeft="true"
+              android:text="@string/movie_description"
+              android:layout_margin="@dimen/moviesTextViews_margin"
+    />
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/movieVoteAverage_textView"
+              android:layout_below="@+id/movieDescription_textView"
+              android:layout_alignParentLeft="true"
+              android:text="@string/movie_rating"
+              android:layout_margin="@dimen/moviesTextViews_margin"
+    />
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/moviePopularity"
+              android:text="@string/movie_popularity"
+              android:layout_toRightOf="@id/Detail_poster_imageView"
+              android:layout_below="@id/movieDescription_textView"
+              android:layout_margin="@dimen/moviesTextViews_margin"
+    />
+</RelativeLayout>

@@ -1,13 +1,12 @@
 package com.example.kemo.movieapp;
 
-import android.content.Context;
-import android.widget.ImageView;
+import java.io.Serializable;
 
 /**
  * Created by kemo on 17/10/2016.
  */
-public class Movie extends ImageView{
-    private String title;
+public class Movie implements Serializable{
+    private String  title;
     private String overView;
     private double voteAverage;
     private int movieId;
@@ -81,10 +80,4 @@ public class Movie extends ImageView{
         this.title = title;
     }
 
-
-    public Movie(Context context)
-    {
-        super(context);
-
-    }
 }
