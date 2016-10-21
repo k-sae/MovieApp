@@ -2,9 +2,11 @@ package com.example.kemo.movieapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -67,7 +69,10 @@ public class MainActivityFragment extends Fragment {
     private void fetchMovies()
     {
         FetchMovies fetchMovies = new FetchMovies();
-        fetchMovies.execute("popularity.desc");
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String sortBy = preferences.getString(getString(R.string.pref_sort_key)
+                ,getString(R.string.pref_sort_default));
+        fetchMovies.execute(sortBy);
     }
     class FetchMovies extends AsyncTask<String, Void,ArrayList<Movie>>
     {
@@ -229,7 +234,7 @@ class ImageListAdapter extends BaseAdapter {
                 // if it's not recycled, initialize some attributes
                 imageView = new ImageView(context);
                 //imageView.setLayoutParams(new GridView.LayoutParams(300, 300));
-                imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 300));
+                imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,400));
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             } else {
                 imageView = (ImageView) convertView;

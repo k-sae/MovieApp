@@ -10,12 +10,12 @@
            android:background="#aaa"
 
 />
-    <TextView android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
+    <TextView
               android:id="@+id/movieTitle_textView"
               android:layout_toRightOf="@+id/Detail_poster_imageView"
               android:layout_alignParentTop="true"
               android:text="@string/movie_title"
+              style="@style/wrap"
               android:layout_margin="@dimen/moviesTextViews_margin"
     />
     <TextView android:layout_width="wrap_content"
