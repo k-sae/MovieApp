@@ -1,6 +1,5 @@
 package com.example.kemo.movieapp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -13,10 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
-import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -199,58 +195,3 @@ public class MainActivityFragment extends Fragment {
 
 
 
-class ImageListAdapter extends BaseAdapter {
-    private Context context;
-    private LayoutInflater inflater;
-    private ArrayList<Movie> movies;
-    public ImageListAdapter(Context context, Movie[] movies) {
-        this.movies = new ArrayList<>();
-        this.context = context;
-        this.movies.toArray(movies);
-        inflater = LayoutInflater.from(context);
-    }
-
-    @Override
-    public Object getItem(int i) {
-        return movies.get(i);
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return 0;
-    }
-
-    @Override
-    public int getCount() {
-        return movies.size();
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
-           // convertView = inflater.inflate(R.layout.movies_posters, parent, false);
-
-            if (convertView == null) {
-                // if it's not recycled, initialize some attributes
-                imageView = new ImageView(context);
-                //imageView.setLayoutParams(new GridView.LayoutParams(300, 300));
-                imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,400));
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            } else {
-                imageView = (ImageView) convertView;
-            }
-
-
-        Picasso
-                .with(context)
-                .load(movies.get(position).getPosterPath())
-                .fit()
-                .into( imageView);
-        return imageView;
-    }
-    public ArrayList<Movie> getUriList()
-    {
-        return movies;
-    }
-
-}
