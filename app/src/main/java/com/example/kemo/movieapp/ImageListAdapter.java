@@ -1,14 +1,12 @@
 package com.example.kemo.movieapp;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -45,18 +43,16 @@ public class ImageListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
-        RelativeLayout relativeLayout;
+       // RelativeLayout relativeLayout;
         final ProgressBar progressBar;
         //i think creating it using code is better
 
 //         convertView = inflater.inflate(R.layout.movies_posters, parent, false);
         if (convertView == null) {
-           relativeLayout = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.movies_posters, parent, false);
-            Log.e("TAAAAAG", Integer.toString(relativeLayout.getChildCount()));
-//           imageView = (ImageView) relativeLayout.findViewById(R.id.Detail_poster_imageView);
-//           progressBar = (ProgressBar) relativeLayout.findViewById(R.id.movie_poster_progressBar);
-                imageView = (ImageView) relativeLayout.getChildAt(1);
-                progressBar = (ProgressBar) relativeLayout.getChildAt(0);
+           convertView = LayoutInflater.from(context).inflate(R.layout.movies_posters, parent, false);
+//
+//                imageView = (ImageView) relativeLayout.getChildAt(1);
+//                progressBar = (ProgressBar) relativeLayout.getChildAt(0);
 //            imageView = new ImageView(context);
 //            //static height -_-
 //            relativeLayout = new RelativeLayout(context);
@@ -72,12 +68,10 @@ public class ImageListAdapter extends BaseAdapter {
 //            RelativeLayout.LayoutParams layoutParam = new RelativeLayout.LayoutParams(100,100);
 //            layoutParam.addRule(RelativeLayout.CENTER_IN_PARENT);
 //            relativeLayout.addView(progressBar, layoutParam);
-        } else {
-            relativeLayout = (RelativeLayout) convertView;
-                imageView = (ImageView) relativeLayout.getChildAt(1);
-                progressBar = (ProgressBar) relativeLayout.getChildAt(0);
-                progressBar.setVisibility(View.VISIBLE);
         }
+        imageView = (ImageView) convertView.findViewById(R.id.movie_poster_image);
+        progressBar = (ProgressBar) convertView.findViewById(R.id.movie_poster_progressBar);
+        progressBar.setVisibility(View.VISIBLE);
             Picasso
                     .with(context)
                     .load(movies.get(position).getPosterPath())
@@ -94,7 +88,7 @@ public class ImageListAdapter extends BaseAdapter {
                             //TODO
                         }
                     });
-            return relativeLayout;
+            return convertView;
         }
 
 

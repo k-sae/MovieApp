@@ -151,24 +151,29 @@ public class MainActivityFragment extends Fragment {
             final String MDB_POPULARITY = "popularity";
             final String MDB_ORIGINAL_TITLE = "original_title";
             ArrayList<Movie> movies = new ArrayList<>();
-            JSONObject movieDetails = new JSONObject(jsonStr);
-            JSONArray weatherData = movieDetails.getJSONArray(MDB_RESULTS);
-            for (int i = 0; i < weatherData.length(); i++)
-            {
-                Movie movie = new Movie();
-                JSONObject jsonObject = weatherData.getJSONObject(i);
-                movie.setMovieId(jsonObject.getInt(MDB_ID));
-                movie.setPosterPath(jsonObject.getString(MDB_POSTER_PATH));
-                movie.setOverView(jsonObject.getString(MDB_OVERVIEW));
-                movie.setTitle(jsonObject.getString(MDB_TITLE));
-                movie.setReleaseData(jsonObject.getString(MDB_RELEASE_DATE));
-                movie.setVoteAverage(jsonObject.getDouble(MDB_VOTE_AVERAGE));
-                movie.setPopularity(jsonObject.getDouble(MDB_POPULARITY));
-                movie.setOriginalTitle(jsonObject.getString(MDB_ORIGINAL_TITLE));
-                movies.add(movie);
-            }
+            try {
+                JSONObject movieDetails = new JSONObject(jsonStr);
+                JSONArray weatherData = movieDetails.getJSONArray(MDB_RESULTS);
+                for (int i = 0; i < weatherData.length(); i++) {
+                    Movie movie = new Movie();
+                    JSONObject jsonObject = weatherData.getJSONObject(i);
+                    movie.setMovieId(jsonObject.getInt(MDB_ID));
+                    movie.setPosterPath(jsonObject.getString(MDB_POSTER_PATH));
+                    movie.setOverView(jsonObject.getString(MDB_OVERVIEW));
+                    movie.setTitle(jsonObject.getString(MDB_TITLE));
+                    movie.setReleaseData(jsonObject.getString(MDB_RELEASE_DATE));
+                    movie.setVoteAverage(jsonObject.getDouble(MDB_VOTE_AVERAGE));
+                    movie.setPopularity(jsonObject.getDouble(MDB_POPULARITY));
+                    movie.setOriginalTitle(jsonObject.getString(MDB_ORIGINAL_TITLE));
+                    movies.add(movie);
+                }
 
-            return movies;
+                return movies;
+            }catch (Exception e)
+            {
+                Log.e("getMovieFromJson", e.getMessage());
+            }
+            return null;
         }
 
         @Override
