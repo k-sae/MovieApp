@@ -46,28 +46,9 @@ public class ImageListAdapter extends BaseAdapter {
        // RelativeLayout relativeLayout;
         final ProgressBar progressBar;
         //i think creating it using code is better
-
-//         convertView = inflater.inflate(R.layout.movies_posters, parent, false);
+;
         if (convertView == null) {
            convertView = LayoutInflater.from(context).inflate(R.layout.movies_posters, parent, false);
-//
-//                imageView = (ImageView) relativeLayout.getChildAt(1);
-//                progressBar = (ProgressBar) relativeLayout.getChildAt(0);
-//            imageView = new ImageView(context);
-//            //static height -_-
-//            relativeLayout = new RelativeLayout(context);
-//            relativeLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 400));
-//            imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-//            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//            relativeLayout.addView(imageView);
-//            progressBar = new ProgressBar(context,null, android.R.attr.progressBarStyleLarge);
-//            progressBar.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-//            progressBar.setIndeterminate(true);
-//            progressBar.getIndeterminateDrawable().setColorFilter(Color.BLUE, PorterDuff.Mode.MULTIPLY);
-//            progressBar.setVisibility(View.VISIBLE);
-//            RelativeLayout.LayoutParams layoutParam = new RelativeLayout.LayoutParams(100,100);
-//            layoutParam.addRule(RelativeLayout.CENTER_IN_PARENT);
-//            relativeLayout.addView(progressBar, layoutParam);
         }
         imageView = (ImageView) convertView.findViewById(R.id.movie_poster_image);
         progressBar = (ProgressBar) convertView.findViewById(R.id.movie_poster_progressBar);
@@ -79,7 +60,6 @@ public class ImageListAdapter extends BaseAdapter {
                     .into(imageView, new Callback() {
                         @Override
                         public void onSuccess() {
-                            //TODO
                            progressBar.setVisibility(View.GONE);
                         }
 

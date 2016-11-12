@@ -3,6 +3,7 @@ package com.example.kemo.movieapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ public class DetailsActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_details, container, false);
-       view = setLayout(view);
+        view = setLayout(view);
         return view;
     }
     private View setLayout(View view)
@@ -47,6 +48,7 @@ public class DetailsActivityFragment extends Fragment {
         //popularity
         textView = (TextView) view.findViewById(R.id.moviePopularity);
         AppendText(textView,Double.toString(movie.getPopularity()));
+        Log.e("Details", Integer.toString( movie.getMovieId()));
         return view;
     }
     private void AppendText(TextView textView, String text)
