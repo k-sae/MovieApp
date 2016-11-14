@@ -65,5 +65,5 @@ abstract class URLConnector extends AsyncTask<String, Void,ArrayList<Object>>
 
     }
    abstract protected ArrayList<Object> getObjFromjson(String Jsonstr);
-   abstract protected  URL fetchURL(String sortMode);
+   abstract protected  URL fetchURL(String s);
 }

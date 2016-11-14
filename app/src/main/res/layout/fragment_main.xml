@@ -4,9 +4,8 @@
                 android:layout_height="match_parent"
                 tools:showIn="@layout/activity_main"
                 tools:context="com.example.kemo.movieapp.MainActivityFragment"
-                android:background="#123"
+                android:background="@color/colorPrimaryDark"
 >
-   <!--<ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:id="@+id/image_view" android:src="@mipmap/image1"/>-->
     <GridView android:layout_width="match_parent" android:layout_height="match_parent" android:id="@+id/gridView_movies"
               android:numColumns="2"
     ></GridView>

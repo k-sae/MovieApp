@@ -41,10 +41,10 @@ public class MovieFetcher extends URLConnector {
         ArrayList<Object> movies = new ArrayList<>();
         try {
             JSONObject movieDetails = new JSONObject(jsonStr);
-            JSONArray weatherData = movieDetails.getJSONArray(MDB_RESULTS);
-            for (int i = 0; i < weatherData.length(); i++) {
+            JSONArray movieData = movieDetails.getJSONArray(MDB_RESULTS);
+            for (int i = 0; i < movieData.length(); i++) {
                 Movie movie = new Movie();
-                JSONObject jsonObject = weatherData.getJSONObject(i);
+                JSONObject jsonObject = movieData.getJSONObject(i);
                 movie.setMovieId(jsonObject.getInt(MDB_ID));
                 movie.setPosterPath(jsonObject.getString(MDB_POSTER_PATH));
                 movie.setOverView(jsonObject.getString(MDB_OVERVIEW));
