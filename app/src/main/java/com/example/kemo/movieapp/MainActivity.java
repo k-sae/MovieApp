@@ -4,18 +4,31 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity implements MovieAppActivity {
+    public boolean isDual;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+       View view  = LayoutInflater.from(this).inflate(R.layout.activity_main,null,false);
+        setContentView(view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+       if (view.findViewById(R.id.DetailsContainer) != null)
+        {
+            isDual = true;
+            if(savedInstanceState == null)
+            {
+              /*  getSupportFragmentManager().beginTransaction().add(R.id.DetailsContainer,
+                        new DetailsActivityFragment())
+                        .commit();*/
+            }
+        }
+        else isDual = false;
 
     }
 
@@ -40,5 +53,22 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void navigate(Movie movie) {
+            if (isDual)
+            {
+                DetailsActivityFragment.movie = movie;
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.DetailsContainer,
+                        new DetailsActivityFragment())
+                        .commit();
+            }
+            else
+            {
+                Intent intent = new Intent(this, DetailsActivity.class).putExtra(Intent.EXTRA_TEXT, movie);
+                startActivity(intent);
+            }
     }
 }

@@ -26,6 +26,7 @@ import java.util.ArrayList;
  */
 public class DetailsActivityFragment extends Fragment {
 
+   public static Movie movie;
     public DetailsActivityFragment() {
     }
     FlowLayout trailersViewer;
@@ -42,7 +43,15 @@ public class DetailsActivityFragment extends Fragment {
         ImageView imageView = (ImageView) view.findViewById(R.id.Detail_poster_imageView);
         Intent intent = getActivity().getIntent();
         Movie movie = (Movie) intent.getSerializableExtra(Intent.EXTRA_TEXT);
-        Picasso.with(getActivity()).load(movie.getPosterPath()).fit().into(imageView);
+        if (movie == null && DetailsActivityFragment.movie != null)
+        {
+            movie = DetailsActivityFragment.movie;
+        }
+        else if (movie == null)
+        {
+            return view;
+        }
+         Picasso.with(getActivity()).load(movie.getPosterPath()).fit().into(imageView);
         //title
         TextView textView = (TextView) view.findViewById(R.id.movieTitle_textView);
         textView.setText(textView.getText() +" " + movie.getTitle());
@@ -58,7 +67,6 @@ public class DetailsActivityFragment extends Fragment {
         //popularity
         textView = (TextView) view.findViewById(R.id.moviePopularity);
         AppendText(textView,Double.toString(movie.getPopularity()));
-        Log.e("Details", Integer.toString( movie.getMovieId()));
         trailersViewer = (FlowLayout) view.findViewById(R.id.trailers_container);
         fetchTrailers(movie.getMovieId());
         return view;
@@ -117,21 +125,31 @@ public class DetailsActivityFragment extends Fragment {
                 trailersViewer.findViewById(R.id.movie_trailers_loading).setVisibility(View.GONE);
                 for (Object o :
                         objects) {
-                    final MovieTrailer movieTrailer = (MovieTrailer)o;
-                    LinearLayout linearLayout =(LinearLayout) LayoutInflater.from(getActivity())
-                            .inflate(R.layout.movie_trailer, null, false);
-                    TextView textView = (TextView) linearLayout.findViewById(R.id.trailer_textView);
-                    textView.setText(movieTrailer.getName());
-                    linearLayout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            startActivity
-                                    (new Intent(Intent.ACTION_VIEW,
-                                            Uri.parse("http://www.youtube.com/watch?v="
-                                                    + movieTrailer.getKey())));
+                    try {
+                        final MovieTrailer movieTrailer = (MovieTrailer) o;
+                        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(getActivity())
+                                .inflate(R.layout.movie_trailer, null, false);
+                        TextView textView = (TextView) linearLayout.findViewById(R.id.trailer_textView);
+                        textView.setText(movieTrailer.getName());
+                        linearLayout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity
+                                        (new Intent(Intent.ACTION_VIEW,
+                                                Uri.parse("http://www.youtube.com/watch?v="
+                                                        + movieTrailer.getKey())));
+                            }
+                        });
+                        trailersViewer.addView(linearLayout);
+                    }catch (Exception e)
+                    {
+                        try {
+                            Log.e("DetailFragment", e.getMessage());
+                        }catch (Exception e1)
+                        {
+                            //ignore
                         }
-                    });
-                    trailersViewer.addView(linearLayout);
+                    }
                 }
             }
         };

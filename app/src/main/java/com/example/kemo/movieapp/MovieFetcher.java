@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Created by kemo on 12/11/2016.
  */
 public class MovieFetcher extends URLConnector {
-
+    public MovieAppActivity movieAppActivity;
     ImageListAdapter imageListAdapter;
     @Override
     protected void onPostExecute(ArrayList<Object> movies) {
@@ -21,6 +21,8 @@ public class MovieFetcher extends URLConnector {
         if(movies == null) return;
         ArrayList<Movie> uriPaths = imageListAdapter.getUriList();
         uriPaths.clear();
+        if (((MainActivity) movieAppActivity).isDual)
+        movieAppActivity.navigate((Movie) movies.get(0));
         for (Object movie: movies
                 ) {
             uriPaths.add((Movie) movie);

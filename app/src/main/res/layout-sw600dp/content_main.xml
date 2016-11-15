@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:divider="?android:attr/dividerHorizontal"
+              android:orientation="horizontal"
+              android:name="com.example.kemo.movieapp.MainActivityFragment"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              app:layout_behavior="@string/appbar_scrolling_view_behavior"
+>
+
+
+<fragment
+          android:id="@+id/fragment"
+          android:name="com.example.kemo.movieapp.MainActivityFragment"
+          android:layout_width="0dp"
+          android:layout_weight="5"
+          android:layout_height="match_parent"
+          app:layout_behavior="@string/appbar_scrolling_view_behavior"
+          tools:layout="@layout/fragment_main"/>
+    <FrameLayout android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:layout_weight="7"
+                 android:id="@+id/DetailsContainer"
+                 android:background="@color/colorPrimaryDark"
+    />
+</LinearLayout>

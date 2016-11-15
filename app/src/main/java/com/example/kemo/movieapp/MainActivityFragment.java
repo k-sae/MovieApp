@@ -1,6 +1,5 @@
 package com.example.kemo.movieapp;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -42,8 +41,7 @@ public class MainActivityFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Movie movie = (Movie) imageListAdapter.getItem(i);
-                Intent intent = new Intent(getActivity(), DetailsActivity.class).putExtra(Intent.EXTRA_TEXT, movie);
-                startActivity(intent);
+                ((MovieAppActivity) getActivity()).navigate(movie);
             }
         });
         return view;
@@ -52,6 +50,7 @@ public class MainActivityFragment extends Fragment {
     private void fetchMovies() {
         MovieFetcher fetchMovies = new MovieFetcher();
         fetchMovies.imageListAdapter = imageListAdapter;
+        fetchMovies.movieAppActivity =(MovieAppActivity) getActivity();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String sortBy = preferences.getString(getString(R.string.pref_sort_key)
                 , getString(R.string.pref_sort_default));
