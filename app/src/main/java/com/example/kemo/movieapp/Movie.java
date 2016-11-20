@@ -1,11 +1,11 @@
 package com.example.kemo.movieapp;
 
-import java.io.Serializable;
+import io.realm.RealmObject;
 
 /**
  * Created by kemo on 17/10/2016.
  */
-public class Movie implements Serializable{
+public class Movie extends RealmObject{
     private String  title;
     private String overView;
     private double voteAverage;
@@ -79,5 +79,6 @@ public class Movie implements Serializable{
     public void setTitle(String title) {
         this.title = title;
     }
+
 
 }

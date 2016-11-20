@@ -19,10 +19,14 @@ public class MovieFetcher extends URLConnector {
     protected void onPostExecute(ArrayList<Object> movies) {
         super.onPostExecute(movies);
         if(movies == null) return;
+        updateMovies(movies);
+    }
+    public void updateMovies(ArrayList<Object> movies)
+    {
         ArrayList<Movie> uriPaths = imageListAdapter.getUriList();
         uriPaths.clear();
-        if (((MainActivity) movieAppActivity).isDual)
-        movieAppActivity.navigate((Movie) movies.get(0));
+        if (((MainActivity) movieAppActivity).isDual && movies.size() > 0)
+            movieAppActivity.navigate((Movie) movies.get(0));
         for (Object movie: movies
                 ) {
             uriPaths.add((Movie) movie);

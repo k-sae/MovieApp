@@ -68,5 +68,16 @@
         </LinearLayout>
     </org.apmem.tools.layouts.FlowLayout>
     </LinearLayout>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#fff"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:background="@color/colorPrimary"
+            android:id="@+id/favourites_button"
+            android:layout_below="@+id/movieDate_textView" android:layout_alignLeft="@+id/movieDate_textView"
+            android:layout_alignStart="@+id/movieDate_textView"/>
 </RelativeLayout>
 </ScrollView>

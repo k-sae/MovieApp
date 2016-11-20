@@ -30,4 +30,6 @@ dependencies {
     compile 'com.android.support:design:23.4.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'org.apmem.tools:layouts:1.10@aar'
+    compile 'io.realm:realm-android:0.84.1'
+    compile 'com.google.code.gson:gson:2.2.4'
 }

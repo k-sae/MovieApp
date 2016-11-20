@@ -3,9 +3,11 @@
     <string-array name="pref_units_options">
         <item>@string/pref_sortBy_popularity_label</item>
         <item>@string/pref_sortBy_voteAverage_label</item>
+        <item>@string/pref_sortBy_favourites_label</item>
     </string-array>
     <string-array name="pref_units_values">
         <item>@string/pref_sortBy_popularity_value</item>
         <item>@string/pref_sortBy_voteAverage_value</item>
+        <item>@string/pref_sortBy_favourites_value</item>
     </string-array>
 </resources>

@@ -9,6 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import io.realm.Realm;
+import io.realm.RealmResults;
+
+import java.util.ArrayList;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -54,6 +58,15 @@ public class MainActivityFragment extends Fragment {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String sortBy = preferences.getString(getString(R.string.pref_sort_key)
                 , getString(R.string.pref_sort_default));
+        if(sortBy.equals(getString(R.string.pref_sortBy_favourites_value)))
+        {
+            Realm realm = Realm.getDefaultInstance();
+            RealmResults<Movie> realmResults = realm.where(Movie.class).findAll();
+            ArrayList<Object> movies = new ArrayList<>(realmResults.size());
+            movies.addAll(realmResults);
+            fetchMovies.updateMovies(movies);
+        }
+        else
         fetchMovies.execute(sortBy);
     }
 

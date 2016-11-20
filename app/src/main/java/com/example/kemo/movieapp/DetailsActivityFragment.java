@@ -8,10 +8,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
+import io.realm.Realm;
+import io.realm.RealmResults;
 import org.apmem.tools.layouts.FlowLayout;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,8 +28,13 @@ import java.util.ArrayList;
  * A placeholder fragment containing a simple view.
  */
 public class DetailsActivityFragment extends Fragment {
+    private static Movie movie;
+    public static void setMovie(Movie movie) {
+        DetailsActivityFragment.movie = movie;
+    }
 
-   public static Movie movie;
+
+   private boolean isInFavourites;
     public DetailsActivityFragment() {
     }
     FlowLayout trailersViewer;
@@ -42,15 +50,8 @@ public class DetailsActivityFragment extends Fragment {
         //loading Image
         ImageView imageView = (ImageView) view.findViewById(R.id.Detail_poster_imageView);
         Intent intent = getActivity().getIntent();
-        Movie movie = (Movie) intent.getSerializableExtra(Intent.EXTRA_TEXT);
-        if (movie == null && DetailsActivityFragment.movie != null)
-        {
-            movie = DetailsActivityFragment.movie;
-        }
-        else if (movie == null)
-        {
-            return view;
-        }
+        Button favouritesButton =(Button) view.findViewById(R.id.favourites_button);
+        setfavouriteButton(favouritesButton);
          Picasso.with(getActivity()).load(movie.getPosterPath()).fit().into(imageView);
         //title
         TextView textView = (TextView) view.findViewById(R.id.movieTitle_textView);
@@ -156,5 +157,45 @@ public class DetailsActivityFragment extends Fragment {
 
         urlConnector.execute(Integer.toString(id));
     }
+   private boolean isInFavourites()
+   {
+       //SetRealm
+       Realm realm = Realm.getDefaultInstance();
+
+        RealmResults<Movie> realmQuery = realm.where(Movie.class).equalTo("movieId", movie.getMovieId()).findAll();
+       return (realmQuery.size() != 0);
+
+   }
+
+   private void setfavouriteButton(final Button favouritesButton)
+   {
+         isInFavourites = isInFavourites();
+       updateLayout(isInFavourites, favouritesButton);
+       favouritesButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+                if (isInFavourites)
+                {
+                    Utility.removeFromRealm(movie.getMovieId());
+                }
+                else Utility.addToRealm(movie);
+               isInFavourites = !isInFavourites;
+               updateLayout(isInFavourites, favouritesButton);
+           }
+       });
+   }
+
+   private void updateLayout(boolean b, Button favButton)
+   {
+       if(b)
+       {
+
+           favButton.setText(getString(R.string.remove_from_favourites_button));
+       }
+       else
+       {
+           favButton.setText(getString(R.string.add_to_favourites_button));
+       }
+   }
 
 }
