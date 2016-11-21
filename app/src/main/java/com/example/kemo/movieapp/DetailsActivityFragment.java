@@ -34,14 +34,12 @@ public class DetailsActivityFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_details, container, false);
         //get the movie View
-        View movieDetailsView = inflater.inflate(R.layout.movie_details, container, false);
-//        movieDetailsView = setLayout(movieDetailsView,container);
         //initialize arrayList
         ArrayList<Object> objects = new ArrayList<>();
         //add movie to this arrayList
         objects.add(movie);
         //pass this array list to the adapter
-        detailsAdapter = new DetailsAdapter(getActivity(),objects,movieDetailsView);
+        detailsAdapter = new DetailsAdapter(getActivity(),objects);
         ListView listView = (ListView) view.findViewById(R.id.details_listView);
         //bind the list to the adapter
         listView.setAdapter(detailsAdapter);

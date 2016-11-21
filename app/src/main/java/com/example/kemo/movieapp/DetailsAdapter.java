@@ -26,14 +26,12 @@ import java.util.ArrayList;
 public class DetailsAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Object> items;
-    private View movieView;
     private boolean isInFavourites;
     FlowLayout trailersViewer;
-    public DetailsAdapter(Context context, ArrayList<Object> items, View movieView)
+    public DetailsAdapter(Context context, ArrayList<Object> items)
     {
         this.items = items;
         this.context = context;
-        this.movieView = movieView;
     }
     @Override
     public int getCount() {
