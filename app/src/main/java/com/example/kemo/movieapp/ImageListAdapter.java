@@ -43,10 +43,7 @@ public class ImageListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
-       // RelativeLayout relativeLayout;
         final ProgressBar progressBar;
-        //i think creating it using code is better
-;
         if (convertView == null) {
            convertView = LayoutInflater.from(context).inflate(R.layout.movies_posters, parent, false);
         }

@@ -17,9 +17,6 @@ import java.util.ArrayList;
 /**
  * A placeholder fragment containing a simple view.
  */
-//TODO
-    // remove useless info in imagelist adabter & remove the bitmap from movie
-    //just pass the link where the the other page will load it -_-
 public class MainActivityFragment extends Fragment {
 
 
